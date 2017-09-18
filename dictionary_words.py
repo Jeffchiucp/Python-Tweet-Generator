@@ -12,7 +12,7 @@ The method rstrip() returns a copy of the string in which all chars have been st
 """
 def randomSentence(): #6
     filename = "/usr/share/dict/words"
-
+    # string as output as we got the string of words
     # get the random index and use the linecache to get the word
     rand_index = random.randint(1, 235886)
     word = linecache.getline(filename, rand_index, module_globals=None)

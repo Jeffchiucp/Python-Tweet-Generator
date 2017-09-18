@@ -3,6 +3,12 @@ import sys
 import string
 import re
 
+# Analyze word frequency in a text
+# I use dictionary as my way to create the file.
+# and add words into dictionary by counting it
+# if words are not in dictionary, then I add those word into dictionary
+# it is pretty good way to create a histogram
+# final output is that we return the dictionary
 def histogram(source):
     dictionary = {}
     with open(source) as f:
@@ -15,9 +21,10 @@ def histogram(source):
                 dictionary[word] += 1
     return dictionary
 
+# to generate a random sentence, I use function to generate random integers
 def randomSentence(letters):
     file = open("/usr/share/dict/words", "r")
-
+    # this array is reading the source and split them by line
     array = file.read().splitlines()
     length = len(array)
     to_return = ''
@@ -31,14 +38,13 @@ def unique_words(histogram): #1
     return len(histogram)
 
 def frequency(word, histogram): #1
-
     return histogram.get(word, 0)
 
 if __name__ == '__main__': #5
     source = "bible.txt"
     histogram = histogram(source)
-    print(histogram)
+    #print(histogram)
     print(frequency("death", histogram))
     print(unique_words(histogram))
-    #print ("The frequency is %d\nThe random number is %d" % (frequency("death", histogram), histogram))
+    #print((frequency("death", histogram), histogram))
     #print("The frequency is" + frequency("death", histogram))

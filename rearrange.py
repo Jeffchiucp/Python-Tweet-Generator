@@ -3,10 +3,8 @@ import random
 import sys
 
 """
-no use of slices but working on various problem
-"""
-
-#passed by reference
+# python is passed by reference's value
+# passed by reference
 # passed by value
 # passed it here
 # .copy() # python 3 only
@@ -28,14 +26,15 @@ no use of slices but working on various problem
 # go all the [6::-1]
 # [::-1] easy way to reverse the list
 # scrambled = original[::-1]
+    # python sorted, and added color
+    # python has a way for a way to shuffle index
+    # len(includes original, and excludes the length )
+"""
+
 def random_shuffle(): #2
     # Creates a random number between 1 and the total number of tokens
     words = sys.argv[1:len(sys.argv)]
-    #python sorted, and added color
-    # python has a way for a way to shuffle index
-    # len(includes original, and excludes the length )
-    # python | if you don't know,
-    # alice in
+
     rand_index = random.randint(1, 20)
 
     # before we learn more about
@@ -55,3 +54,4 @@ def random_shuffle(): #2
 if __name__ == '__main__':
     print(' '.join(random_shuffle()))
     # print out the function to debug
+    # this is very python syntax to be able to join strings
