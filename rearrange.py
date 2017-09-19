@@ -7,26 +7,34 @@ import sys
 # passed by reference
 # passed by value
 # passed it here
+# how do we remember that it's a copy.
 # .copy() # python 3 only
 # .clone in Java
 # list() method, list
 # scramblede values of the original list  list(original)
-#  does the original list get modified?
-#  yes. in this case.
-# we should do copy a new list. please implement that.
+# does the original list get modified? It depends.
+#
+# Yes. In this case, we want to sort database, huddle list,
+# we should do copy a new list.
+# we can take.
+# please implement that.
 # 1 way. .copy()
 # scrambled = original[:]
 # is scrambled list, is it
 
 # thing to think about ...
-# objects, and collections - in python, treated it like passed by reference
+# objects, and collections - in python, treated it like passed by reference. mutable .
 # int, float - in python, treated like passed by value. They can be copied as a pointer.
+
 
 # syntax sugar of the python
 # go all the [6::-1]
 # [::-1] easy way to reverse the list
 # scrambled = original[::-1]
-    # python sorted, and added color
+
+# how does the developer know what we return.
+    # on_sorted (mutated the original list)
+    # python sorted, and added color | returns a new copy | original is not modified.
     # python has a way for a way to shuffle index
     # len(includes original, and excludes the length )
 """
