@@ -13,7 +13,6 @@ while attempting to optimize internally, using a cache, the common case where ma
 The method rstrip() returns a copy of the string in which all chars have been stripped from the end of the string (default whitespace characters).
 """
 def randomSentence(): #6
-""" a program that randomly picks word(s) from the dictionary """
     filename = "/usr/share/dict/words"
     # output: we got the string of words
     # get the random index and use the linecache to get the word

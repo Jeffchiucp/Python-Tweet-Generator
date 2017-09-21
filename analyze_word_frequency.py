@@ -14,7 +14,7 @@ def histogram(source):
         wordList = f.read().split()
         # remove special characters like
         for word in wordList:
-            word = re.sub('[.,:*]', '', word)
+            word = re.sub('[.,:* ]', '', word)
             # if words are not in dictionary, then we assign it to 1
             if word not in dictionary:
                 dictionary[word] = 1
