@@ -31,15 +31,11 @@ def get_random_word(dictionary):
 def get_random_with_weight(dictionary):
     """Randomly picking items with given weights. Code Source from Elmer"""
     dictionary_weightValue = {}
-    total_values = sum(histogram.values())
+    total_values = sum(dictionary.values())
     # Grab every value from dictionary python
-    for (word, value) in histogram.items():
-        #print("{} : {} ".format(word, value))
+    for (word, value) in dictionary.items():
+        print("{} : {} ".format(word, value))
         total = value / total_values
-        print(total)
-        #print(total)
-        # Getting the weight of each value
-        #  weighted_value
         dictionary_weightValue[word] = total
     #     print(total)
     # print(dictionary_weightValue)
