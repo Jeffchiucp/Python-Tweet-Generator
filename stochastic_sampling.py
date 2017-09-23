@@ -1,6 +1,6 @@
 import sys
 import re
-#from histogram import text_file_list
+#from histogram import analyze_word_frequency
 import random
 from datetime import datetime
 
@@ -35,10 +35,10 @@ def get_random_with_weight(dictionary):
     # Grab every value from dictionary python
     for (word, value) in dictionary.items():
         print("{} : {} ".format(word, value))
-        total = value / total_values
+            total = float (value / total_values)
         dictionary_weightValue[word] = total
-    #     print(total)
-    # print(dictionary_weightValue)
+        print(total)
+    #print(dictionary_weightValue)
     return dictionary_weightValue
 
 def get_random_word_by_weight_prob(dictionary_weightValue):
@@ -72,7 +72,6 @@ def frequency(word, histogram):
             return histogramWord[1]
 
 if __name__ == "__main__":
-    outcome_gram = {}
     dict = open('./fish.txt', 'r')
     text = dict.read()
     dict.close()
@@ -80,18 +79,16 @@ if __name__ == "__main__":
     weight = get_random_with_weight(hist_dict)
     start = datetime.now()
     print(hist_dict)    # for word, expected_count in hist_dict.items():
+
+    #    outcome_gram = {}
     #print(unique_words(histogram))
+
     print("calculate the frequencies of the words")
-    for number in range(1, 10):
+    for number in range(1, 100):
         dictionary_weightValue = get_random_with_weight(hist_dict)
-        # print(dictionary_weightValue)
+        print(dictionary_weightValue)
         # print(get_random_word_by_weight_prob(dictionary_weightValue))
 
     # calculate the frequencies of the words
     ##print(unique_words())
     print("Time: " + str(datetime.now() - start))
-    #print("If this were a perfect algorithm, the number of fish would be 50000, but my actual value is " + str(outcome_gram["fish"]))
-    # for word, expected_count in hist_dict.items():
-    #print("The percent error is " + str(abs(outcome_gram["fish"] - 50000.0) / 50000.0 * 100.0) + "%")
-    #outcome_gram["fish"] = abs(outcome_gram["fish"] - 5000.0) / 5000.0 * 100.0
-    # calculate the frequencies of the words
