@@ -1,5 +1,5 @@
 #!python3
-
+"""main script, uses other modules to generate sentences"""
 from random import randint
 from flask import Flask
 from python_script import sample

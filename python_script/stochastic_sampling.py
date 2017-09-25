@@ -4,8 +4,7 @@ from random import randint
 from sys import argv
 import time
 
-"""This sampling technique helps to randomly picking items with given weights. # Analyze word frequency in a histogram
-    # sample words according to their observed frequencesie
+""" # A module for generating a sample word from a histogram
     # compare tradeoff with different sampling techniques
     # 1. # use dictionary to create my histogram key and value pairs inside my histogram
     # 2. use the cumulative sampling to calculate the proabilties and
@@ -15,11 +14,11 @@ import time
 
 def create_histogram(filename):
     """ Create the Histogram to open the filename to start my sampling"""
-    
+
     f = open(filename, 'r')
     lines = f.readlines()
     f.close()
-    
+
     histogram = {}
     for line in lines:
         line = line.rstrip('\n').split(' ')
@@ -32,7 +31,7 @@ def create_relative_probabilities(hist):
 
     total_words = get_total_word_count(hist)
     for word in hist.keys():
-        
+
         freq = hist[word] / float(total_words)
         hist[word] = freq
     return hist
@@ -50,7 +49,7 @@ def get_random_word(hist):
     accumulator = 0.0
     keys = list(hist.keys())
     current_key = None
-    
+
     while accumulator < cumulative_probability:
         current_key = keys.pop(random.randint(0, len(keys) - 1))
         if accumulator + hist[current_key] > cumulative_probability:
@@ -74,7 +73,7 @@ def generate_sentence(data, length):
     graph = create_histogram(data)
     relative_freq = create_relative_probabilities(graph)
     output = ""
-    
+
     # Used the frequencies and generate sentences and outputs
     for num in range(0, length):
         new_word = get_random_word(relative_freq)
@@ -88,7 +87,7 @@ def test_frequency_distribution(data, length):
     relative_freq = create_relative_probabilities(graph)
     print(relative_freq)
     results = {}
-    
+
     for num in range(0, length):
         new_word = get_random_word(relative_freq)
         if new_word in results:
@@ -105,12 +104,10 @@ if __name__ == "__main__":
     # UnComment this line to test the accuary of the word
     # calculate the frequencies of the words
     #print(generate_sentence(arguments[0], int(arguments[1])))
-    
+
     # Comment this line to test the accuary of the word
     # result = test_frequency_distribution(arguments[0], int(arguments[1]))
     # for word in result.keys():
     #     print('{0}: {1}'.format(word, result[word]))
-    
+
     print('Time taken to execute: {0} seconds'.format(time.time() - start))
-
-
