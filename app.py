@@ -2,14 +2,14 @@
 
 from random import randint
 from flask import Flask
-import sample
+from python_script import sample
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def index():
-    return sample.generate_sentence('fish.txt', randint(6, 15))
+    return sample.generate_sentence('./text/output_data.txt', randint(10, 15))
 
 
 if __name__ == "__main__":
