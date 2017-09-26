@@ -18,6 +18,10 @@ def hello():
     tweet = sample.generate_sentence('./text/output_data.txt', randint(10,15))
     if request.method == 'GET':
         return render_template('index.html', tweet=tweet, time=time.time)
+    elif request.method == 'POST':
+        print("Posting!")
+        return render_template('index.html', tweet=tweet, time=time.time)
+
 
 if __name__ == "__main__":
     app.run()

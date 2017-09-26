@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title> Tweet Generator </title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="static/styles/style.css?q={{time}}" />
+</head>
+
+<body>
+  <div class="container">
+    <p> {{tweet}} </p>
+    <form method="get" action="/">
+      <input type="submit" value="generate_tweet">
+    </form>
+    <form method="post" action="/">
+      <input type="submit" value="favorite">
+    </form>
+    <form method="get" action="/favorites">
+      <input type="submit" value="see all favorites">
+    </form>
+  </div>
+</body>
+
+</html>
