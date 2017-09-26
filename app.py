@@ -22,6 +22,9 @@ def hello():
         print("Posting!")
         return render_template('index.html', tweet=tweet, time=time.time)
 
+@app.route('/favorites', methods=['GET', 'POST'])
+def fav():
+    return render_template('favorites.html', tweet="See Your Favorite Tweet")
 
 if __name__ == "__main__":
     app.run()
