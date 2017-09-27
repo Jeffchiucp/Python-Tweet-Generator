@@ -87,7 +87,7 @@ def test_frequency_distribution(data, length):
 if __name__ == '__main__':
     start = time.time()
     arguments = argv[1:]
-
+    """ testing code """
     # UnComment this line to test the accuary of the word
     # calculate the frequencies of the words
     #print(generate_sentence(arguments[0], int(arguments[1])))
