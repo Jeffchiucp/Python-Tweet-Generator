@@ -1,4 +1,4 @@
-.btn {
+.container {
   width: calc(100% - 4em);
   max-width: 500px;
   margin: auto;
@@ -9,4 +9,5 @@
 }
 
 p {
-  color: blue; }
+  color: red;
+}

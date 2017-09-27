@@ -12,7 +12,7 @@ import json
 
 app = Flask(__name__, instance_relative_config=True)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
 db = SQLAlchemy(app)
 
@@ -35,14 +35,15 @@ class Tweet(db.Model):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-
+ 
     if request.method == 'GET':
     	tweet = sample.generate_sentence('./text/output_data.txt', randint(10,15))
     	global currentTweet
     	currentTweet = tweet
     	return render_template('index.html', tweet=tweet, time=time.time)
     elif request.method == 'POST':
-        addFavoriteTweet(currentTweet)
+        if currentTweet not in db:
+            addFavoriteTweet(currentTweet)
         return render_template('index.html', tweet=currentTweet, time=time.time)
 
 """main script, uses other modules to generate sentences"""
@@ -72,4 +73,5 @@ def clear_data(session):
     session.commit()
 
 if __name__ == "__main__":
+    db.create_all()
     app.run(debug=True)

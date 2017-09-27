@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title> Shakespeare Tweet Generator </title>
+  <title> Tweet Generator </title>
   <meta charset="utf-8">
   <link rel="stylesheet" type="text/css" href="static/styles/style.css?q={{time}}" />
 </head>
 
 <body>
-  <div class="button">
-    <p id="favs"> </p>
+  <div class="container">
+    {% for tweet in tweets %}
+      <p class="tweet"> {{tweet}} </p>
+    {% endfor %}
   </div>
-
-    <script>
-      document.getElementById("favs").innerHTML = "Testing";
-    </script>
 </body>
 
 </html>
