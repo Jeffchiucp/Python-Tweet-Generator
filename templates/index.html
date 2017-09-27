@@ -7,17 +7,13 @@
 </head>
 
 <body>
-  <div class="container">
+  <div class="button">
     <p> {{tweet}} </p>
-    <form method="get" action="/">
-      <input type="submit" value="Generate a New Quote">
-    </form>
-    <form method="post" action="/">
-      <input type="submit" value="Favorite this Tweet">
-    </form>
-    <form method="get" action="/favorites">
-      <input type="submit" value="See all the favorites">
-    </form>
+    <form action="/">
+  <button class="btn" formmethod="get"> Generate Tweet </button>
+  <button class="btn" formmethod="post"> Favorite </button>
+  <button class="btn" formmethod="get" formaction="/favorites"> See All Favorites </button>
+</form>
   </div>
 </body>
 
