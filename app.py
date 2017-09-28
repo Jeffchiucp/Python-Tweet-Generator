@@ -1,5 +1,6 @@
 #!python3
-"""main script, uses other modules to generate sentences"""
+"""main script, uses other modules to generate sentences
+SQLAlchemy source and reference credit to Alirie Gray"""
 from random import randint
 from flask import Flask, request, render_template
 from python_script import sample
@@ -38,7 +39,6 @@ def index():
  
     if request.method == 'GET':
     	tweet = sample.generate_sentence('./text/output_data.txt', randint(10,15))
-    	global currentTweet
     	currentTweet = tweet
     	return render_template('index.html', tweet=tweet, time=time.time)
     elif request.method == 'POST':
