@@ -1,7 +1,7 @@
 #!python
 
 
-from __future__ import division
+from __future__ import division, print_function
 
 
 class Dictogram(dict):
@@ -18,18 +18,12 @@ class Dictogram(dict):
         """Update this histogram with the items in the given iterable"""
         for item in iterable:
             # TODO: increment item count
-               for item in iterable:
-            self.tokens += 1
-            if item in self:
-                self[item] += 1
-            else:
-                self[item] = 1
-        self.types = len(self)
+            pass
 
     def count(self, item):
         """Return the count of the given item in this histogram, or 0"""
         # TODO: retrieve item count
-        return self.get(item, 0)
+        pass
 
 
 class Listogram(list):
@@ -44,42 +38,24 @@ class Listogram(list):
 
     def update(self, iterable):
         """Update this histogram with the items in the given iterable"""
-        temp_dict = {}
         for item in iterable:
             # TODO: increment item count
-            self.tokens += 1
-            if item in temp_dict:
-                temp_dict[item] += 1
-            else:
-                temp_dict[item] = 1
-
-        self[0:] = temp_dict.items();
-
-        self.types = len(self)
+            pass
 
     def count(self, item):
         """Return the count of the given item in this histogram, or 0"""
         # TODO: retrieve item count
-        for tup in self:
-            if tup[0] == item:
-                return tup[1]
-        return 0
+        pass
 
     def __contains__(self, item):
         """Return True if the given item is in this histogram, or False"""
         # TODO: check if item is in histogram
-        for tup in self:
-            if tup[0] == item:
-                return True
-        return False
+        pass
 
     def _index(self, target):
         """Return the index of the (target, count) entry if found, or None"""
         # TODO: implement linear search to find an item's index
-        for index, tup in enumerate(self):
-            if tup[0] == item:
-                return index
-        return None
+        pass
 
 
 def test_histogram(text_list):

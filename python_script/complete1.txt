@@ -1,0 +1,83 @@
+ 1
+1
+ 1
+1
+= 1
+1
+and 1
+1
+clean 1
+1
+clean_list 1
+1
+clean_list
+ 1
+1
+clean_list.append(word)
+ 1
+1
+clean_text(dirty_list):
+ 1
+1
+credit 1
+1
+dirty_list:
+ 1
+1
+elmer"""
+def 1
+1
+files 1
+1
+for 1
+1
+from 1
+1
+import 1
+1
+in 1
+1
+list 1
+1
+raw 1
+1
+re
+
+# 1
+1
+re.sub('[.,:;!-[]?', 1
+1
+return 1
+1
+returns: 1
+1
+sam 1
+1
+split 1
+1
+takes: 1
+1
+text. 1
+1
+the 1
+1
+up 1
+1
+word 1
+1
+words
+"""cleannig 1
+1
+| 1
+2
+[]
+ 1
+2
+freshly 1
+2
+of 1
+2
+word)
+ 1
+23
+'', 1

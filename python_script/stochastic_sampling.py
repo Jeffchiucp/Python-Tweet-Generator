@@ -8,7 +8,8 @@ import time
     # compare tradeoff with different sampling techniques
     # 1. # use dictionary to create my histogram key and value pairs inside my histogram
     # 2. use the cumulative sampling to calculate the proabilties and
-    # 3 random generating the word using the weight. Reference other people's Code. Credit from Sam G and Elmer to refactor my code for this solution to solve this problem
+    # 3 random generating the word using the weight. Reference other people's Code. 
+    # Credit from Sam Gazik and Elmer to refactor my code for this solution to solve this problem
 """
 
 
@@ -39,12 +40,11 @@ def create_relative_probabilities(hist):
 
 def get_random_word(hist):
     """
-        first take a random sample of key/value pairs
-        floating point, get ferequency
-    # computing the increasing cumulative probability
+    # computing the sampling by using the cumulative probability
     # until the cumulative_probability becomes greater than the random_int
+    We take a random sample of probability and adds it
+    floating point, get ferequency
         """
-
     cumulative_probability = random()
     accumulator = 0.0
     keys = list(hist.keys())
