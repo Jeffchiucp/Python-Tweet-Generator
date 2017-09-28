@@ -5,6 +5,11 @@ from __future__ import division, print_function
 
 
 class Dictogram(dict):
+        """ A Dictogram is a custom data type we use to store data for our Markov Chain. We use key (a word or phrase) then
+    a histogram (of following words or phrases) to store our data.
+    A key is the current word or phrase we are looking at (it can be
+    a word of phrase because of the order we are using). A value is the word or phrase following our current key.
+     """
 
     def __init__(self, iterable=None):
         """Initialize this histogram as a new dict; update with given items"""
@@ -18,13 +23,17 @@ class Dictogram(dict):
         """Update this histogram with the items in the given iterable"""
         for item in iterable:
             # TODO: increment item count
-            pass
+            self.tokens += 1
+            if item in self:
+                self[item] += 1
+            else:
+                self[item] = 1
+        self.types = len(self)
 
     def count(self, item):
         """Return the count of the given item in this histogram, or 0"""
         # TODO: retrieve item count
-        pass
-
+        return self.get(item, 0)
 
 class Listogram(list):
 

@@ -1,8 +1,8 @@
-#Tweet-Generator
+##Tweet-Generator
 
 ## Markov Model
 
-A light weight Markov Model implemented into python
+A Tweet Generatior using a light weight Markov Model implemented in python
 
 ## Todo
 
