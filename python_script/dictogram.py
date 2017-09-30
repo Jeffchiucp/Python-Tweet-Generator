@@ -1,15 +1,10 @@
 #!python
 
 
-from __future__ import division, print_function
+from __future__ import division
 
 
 class Dictogram(dict):
-        """ A Dictogram is a custom data type we use to store data for our Markov Chain. We use key (a word or phrase) then
-    a histogram (of following words or phrases) to store our data.
-    A key is the current word or phrase we are looking at (it can be
-    a word of phrase because of the order we are using). A value is the word or phrase following our current key.
-     """
 
     def __init__(self, iterable=None):
         """Initialize this histogram as a new dict; update with given items"""
@@ -35,6 +30,7 @@ class Dictogram(dict):
         # TODO: retrieve item count
         return self.get(item, 0)
 
+
 class Listogram(list):
 
     def __init__(self, iterable=None):
@@ -47,24 +43,42 @@ class Listogram(list):
 
     def update(self, iterable):
         """Update this histogram with the items in the given iterable"""
+        temp_dict = {}
         for item in iterable:
             # TODO: increment item count
-            pass
+            self.tokens += 1
+            if item in temp_dict:
+                temp_dict[item] += 1
+            else:
+                temp_dict[item] = 1
+
+        self[0:] = temp_dict.items();
+
+        self.types = len(self)
 
     def count(self, item):
         """Return the count of the given item in this histogram, or 0"""
         # TODO: retrieve item count
-        pass
+        for tup in self:
+            if tup[0] == item:
+                return tup[1]
+        return 0
 
     def __contains__(self, item):
         """Return True if the given item is in this histogram, or False"""
         # TODO: check if item is in histogram
-        pass
+        for tup in self:
+            if tup[0] == item:
+                return True
+        return False
 
     def _index(self, target):
         """Return the index of the (target, count) entry if found, or None"""
         # TODO: implement linear search to find an item's index
-        pass
+        for index, tup in enumerate(self):
+            if tup[0] == item:
+                return index
+        return None
 
 
 def test_histogram(text_list):
@@ -75,6 +89,9 @@ def test_histogram(text_list):
 
     hist_list = Listogram(text_list)
     print('listogram:', hist_list)
+    fish_list = Dictogram(text_list)
+    print('fish_list:', fish_list)
+    print (fish_list.count("fish_list"))
 
 
 def read_from_file(filename):
