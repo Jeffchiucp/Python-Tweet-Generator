@@ -1,29 +1,22 @@
 #!python3
-"""main script, uses other modules to generate sentences
-SQLAlchemy source and reference credit to Alirie Gray"""
+"""main script, uses other modules to generate sentences"""
 from random import randint
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, json
 from python_script import sample
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Table
-
-
+#import twitter
+from dictogram import Dictogram
+from histogram import Histogram
 import time
-import json
 
 app = Flask(__name__, instance_relative_config=True)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
-# db = SQLAlchemy(app)
-# @app.route('/')
-# def index():
-#     return sample.generate_sentence('./text/output_data.txt', randint(10,15))
-
+shakespeare_dictogram = Dictogram('./text/output_data.txt')
 class Tweet(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     content = db.Column(db.String(200), unique=True)
@@ -36,9 +29,10 @@ class Tweet(db.Model):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
- 
     if request.method == 'GET':
-    	tweet = sample.generate_sentence('./text/output_data.txt', randint(10,15))
+        num = request.args.get('num', default = 15, type = int)
+    	tweet = sample.generate_sentence(num)
+    	global currentTweet
     	currentTweet = tweet
     	return render_template('index.html', tweet=tweet, time=time.time)
     elif request.method == 'POST':
