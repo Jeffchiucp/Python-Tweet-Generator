@@ -2,13 +2,15 @@
 """main script, uses other modules to generate sentences"""
 from random import randint
 from flask import Flask, request, render_template, json
+import helper
 from python_script import sample
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Table
 #import twitter
 from dictogram import Dictogram
-from histogram import Histogram
+#from histogram import Histogram
 import time
+import os
 
 app = Flask(__name__, instance_relative_config=True)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
@@ -31,13 +33,16 @@ class Tweet(db.Model):
 def index():
     if request.method == 'GET':
         num = request.args.get('num', default = 15, type = int)
-    	tweet = sample.generate_sentence(num)
-    	global currentTweet
-    	currentTweet = tweet
-    	return render_template('index.html', tweet=tweet, time=time.time)
+        tweet = helper.random_sentence()
+        #tweet = dictogram.generate_sentence(num)
+        #random_sentence = markov.generate_random_sentence_n(140, data_structure)
+
+        global currentTweet
+        currentTweet = tweet
+        return render_template('index.html', tweet=tweet, time=time.time)
     elif request.method == 'POST':
-        if currentTweet not in db:
-            addFavoriteTweet(currentTweet)
+        # if currentTweet not in db:
+            # addFavoriteTweet(currentTweet)
         return render_template('index.html', tweet=currentTweet, time=time.time)
 
 """main script, uses other modules to generate sentences"""
@@ -68,4 +73,5 @@ def clear_data(session):
 
 if __name__ == "__main__":
     db.create_all()
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=True, host='0.0.0.0', port=port)

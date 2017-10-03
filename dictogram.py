@@ -30,6 +30,23 @@ class Dictogram(dict):
         # TODO: retrieve item count
         return self.get(item, 0)
 
+    def return_random_word(self):
+        # Another way:  Should test: random.choice(histogram.keys())
+        random_key = random.sample(self, 1)
+        return random_key[0]
+
+    def return_weighted_random_word(self):
+        # Step 1: Generate random number between 0 and total count - 1
+        random_int = random.randint(0, self.tokens-1)
+        index = 0
+        list_of_keys = self.keys()
+        # print 'the random index is:', random_int
+        for i in range(0, self.types):
+            index += self[list_of_keys[i]]
+            # print index
+            if(index > random_int):
+                # print list_of_keys[i]
+                return list_of_keys[i]
 
 class Listogram(list):
 
@@ -81,17 +98,17 @@ class Listogram(list):
         return None
 
 
-def test_histogram(text_list):
-    print('text list:', text_list)
+# def test_histogram(text_list):
+#     print('text list:', text_list)
 
-    hist_dict = Dictogram(text_list)
-    print('dictogram:', hist_dict)
+#     hist_dict = Dictogram(text_list)
+#     print('dictogram:', hist_dict)
 
-    hist_list = Listogram(text_list)
-    print('listogram:', hist_list)
-    fish_list = Dictogram(text_list)
-    print('fish_list:', fish_list)
-    print (fish_list.count("fish_list"))
+#     hist_list = Listogram(text_list)
+#     print('listogram:', hist_list)
+#     fish_list = Dictogram(text_list)
+#     print('fish_list:', fish_list)
+#     print (fish_list.count("fish_list"))
 
 
 def read_from_file(filename):
