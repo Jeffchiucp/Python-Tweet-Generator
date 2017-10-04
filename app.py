@@ -4,11 +4,13 @@ from random import randint
 from flask import Flask, request, render_template, json
 import helper
 from python_script import sample
+from python_script import markov
+from python_script import Histogram_oop 
+from Histogram_oop import Dictogram
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Table
 #import twitter
 from dictogram import Dictogram
-#from histogram import Histogram
 import time
 import os
 
