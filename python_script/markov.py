@@ -15,7 +15,7 @@ Refactoring with 1st Order Markov Model using python3.6
 #5 set up and the if else statement and acces sets those words to the Dictogram inside our list
 """
 def markov_chain(data):
-	"""markov model for 1st order"""
+	"""markov model for 1st ordergi"""
     markov_chain = dict()
     for index in range(0, len(data) - 1):
         if data[index] in markov_chain:
@@ -28,6 +28,9 @@ def get_start_token(markov):
 	"""create a random starting word as our token start"""
 	return random.choice(list(markov.keys()))
 
+def get_stop_token(markov):
+	"""create a stop token for the end of the sentence"""
+	pass
 
 def get_random_sentence(length, markov_chain):
 	# input variable is the length of the sentence

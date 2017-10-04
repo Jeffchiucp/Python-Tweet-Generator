@@ -31,7 +31,6 @@ class Dictogram(dict):
         return self.get(item, 0)
 
     def return_random_word(self):
-        """return random word"""
         random_key = random.sample(self, 1)
         return random_key[0]
 
@@ -42,8 +41,9 @@ class Dictogram(dict):
         index = 0
         words_list = list(self.keys())
         # uncommeting to test the type
-        # print('keys:', words_list)
-        # print('type:', type(words_list))
+        # import pdb; pdb.set_trace()
+        print('keys:', words_list)
+        print('type:', type(words_list))
         # for i in range(0, self.types):
         #     word = words_list[i]
         for word in words_list:
@@ -103,12 +103,11 @@ class Listogram(list):
         return None
 
 
-def test_histogram(text_list):
-    pass
-    # print('text list:', text_list)
-
-    # hist_dict = Dictogram(text_list)
-    # print('dictogram:', hist_dict)
+def test_histogram(text_list):    
+    import pdb; pdb.set_trace()
+    print('text list:', text_list)
+    hist_dict = Dictogram(text_list)
+    print('dictogram:', hist_dict)
 
 
 def read_from_file(filename):
@@ -124,19 +123,8 @@ def list_of_words(length):
 
 if __name__ == '__main__':
     import sys
-    arguments = sys.argv[1:]  # exclude script name in first argument
+    arguments = sys.argv[1:]  
+    # exclude script name in first argument
     #uncomment to test the data and word
-    # data = ['one', 'fish', 'two', 'fish', 'red', 'fish', 'blue', 'fish']
-    # gram = Dictogram(data)
-    # for word in data:
-    #     gram.update(word)
-
-    # dd = {}
-
-    # for i in range(10):
-    #     word = gram.return_random_word()
-    #     if word in dd:
-    #         dd[word] += 1
-    #     else:
-    #         dd[word] = 1
-    # print(dd)
+    data = ['one', 'fish', 'two', 'fish', 'red', 'fish', 'blue', 'fish']
+    test_histogram(data)
