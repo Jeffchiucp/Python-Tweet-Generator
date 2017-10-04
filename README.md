@@ -5,16 +5,16 @@
 - The application returns a set of randomly generated word(s) based on how often they show up from the source file. Though not its main functionality, it can also see how often a specific word shows up in a body of text, how many unique words there are, and print out a list of words and their occurrences.
 - Each file is a module! It's separated into:
     -`app.py` - main script for my Flask Server, it uses other modules to generate sentences 
-    -`cleanup.py` - module for cleaning up source text 
-
+    -`cleanup.py` - module for cleaning up source text and generates corpus.txt
     - `histogram.py` - grabs a list of words from a body of text
-    - `dictogram.py` - handles turning something into a dictionary.
-        - While `cleanup.py` is much faster, dictogram is cleaner and allows for extra functionality.
+    - `histogram_oop.py` - refactoring histogram class to Dictogram class which helps to generates the random_weighted_words
     - `sample.py` - handles all the percentage handling and creating a list of words+occurrences and makes a text file for it.
+    - `markov_chain.py` - Markov model module generating tweet sentence word from generate_markov_model 
 
--in progress code
-    - tokenize.py # module for creating lists of tokens from a text 
-    - markov_model.py # module for generating a sentence word from generate_markov_model 
+- In Progress Code
+    - `tokenize.py` # module for creating lists of tokens from a text
+    - `markov_chain.py` # Markov model module generating a sentence word
+    - `app.py` # allows tweeter option 
 
 **Are the names of files, modules, functions, and variables appropriate and accurate? Would a new programmer be able to understand the names without too much contextual knowledge?** 
 - Yes. I think they are clearly separated after code review. 
@@ -33,7 +33,8 @@ The Side of effect:
 - Make all of your function modular and make sure it does not pass it.
 
 **Are there functions that could be better organized in an Object-Oriented Programming style by defining them as methods of a class?**
-Yes. 
+Yes.  Remove coupling with Dictogram and MarkovModel. Change class to MarkovChain
+
 
 **Can files be used as both modules and as scripts?
 Do modules all depend on each other or can they be used independently?**
