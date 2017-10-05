@@ -15,9 +15,8 @@ Refactoring 1st Order Markov Model using python3.6
 #5 set uzp and the if else statement and acces sets those words to the Dictogram inside our list
 #6 Converting Markov to class object
 """
-
 class Markov:
-
+	
     def __init__(self, iterable):
         """Initialize with an empty dictionary of word nodes.
         """
@@ -30,14 +29,35 @@ class Markov:
     def generate_sentence(self):
     	pass
 
+    def update_node(self, word, next_word):
+        if word in self.nodes:
+            self.nodes[word].update([next_word])
+        else:
+            self.nodes[word] = Dictogram([next_word])
+
     def get_next(self, current_word):
         dictogram = self.nodes.get(current_word, None)
         if dictogram is None:
             return '[END]'
         return dictogram.get_random_word()
 
+    def generate_sentence(self):
+        words = list()
+        words.append(self.get_next('[START]'))
+
+        while True:
+            next_word = self.get_next(words[len(words) - 1])
+            if next_word == '[END]':
+                break
+            words.append(next_word)
+
+        sentence = " ".join(words)
+        if len(sentence) < 30 or len(sentence) > 140:
+            return self.generate_sentence()
+        return sentence
+        
 """markov function class that is working progress"""
-def markov_chain(data):
+def markov_model(data):
 	"""markov model for 1st ordergi"""
 	markov_chain = dict()
 	for index in range(0, len(data) - 1):
@@ -45,28 +65,31 @@ def markov_chain(data):
 			markov_chain[data[index]].update([data[index + 1]])
 		else:
 			markov_chain[data[index]] = Dictogram([data[index + 1]])
+	import pdb; pdb.set_trace()
 	return markov_chain
  
 def get_start_token(markov):
 	"""create a random starting word as our token start"""
+	# import pdb; pdb.set_trace()
+	print('keys:', list(markov.keys()))
+	print('type:', type(markov.keys()))    
 	return random.choice(list(markov.keys()))
 
 def get_stop_token(markov):
 	"""create a stop token for the end of the sentence"""
 	pass
 
-def genereate_sentence(length, markov_chain):
+def generate_sentence(length, markov_model):
 	# input variable is the length of the sentence
 	# refactor sampling and create a Markov running sentences
 	# loop through the dictogram and append the current word to the previous word
 	# join the sentences to form a word
 	# returns the sentence
-	current_word = get_start_token(markov_chain)
+	current_word = get_start_token(markov_model)
 	sentence = [current_word]
 	for i in range(0, length):
-		current_dictogram = markov_chain[current_word]
+		current_dictogram = markov_model[current_word]
 		#uncomment to do
-		#import pdb; pdb.set_trace()
 		print ("___________________")
 		print (current_dictogram)
 		random_word = current_dictogram.return_weighted_random_word()
@@ -80,11 +103,10 @@ def genereate_sentence(length, markov_chain):
 if __name__ == '__main__':
     # filename = argv[1]
     # _file = open(filename, 'r')
-# testing my codes using pdb
-# start_words = get_start_token(cleaned_file)
-# testing with Dr. Sessus words 
-	file_name = '../text/fish.txt'
+	# testing my codes using pdb
+	# start_words = get_start_token(cleaned_file)
+	# testing with Dr. Sessus words 
+	file_name = '/Users/jchiu/Desktop/Make/Term1/CS2/Python-Tweet-Generator/text/fish.txt'
 	cleaned_file = cleanup.clean_file(file_name)
-	markov_chain = markov_chain(cleaned_file)
-# testing for 11 words 
-	print (genereate_sentence(11, markov_chain))
+	markov_chain = markov_model(cleaned_file)
+	print (generate_sentence(11, markov_chain))

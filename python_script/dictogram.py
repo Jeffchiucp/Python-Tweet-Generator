@@ -1,4 +1,5 @@
 #!python
+from collections import deque
 
 
 from __future__ import division
@@ -29,6 +30,12 @@ class Dictogram(dict):
         """Return the count of the given item in this histogram, or 0"""
         # TODO: retrieve item count
         return self.get(item, 0)
+
+    def random_start(self):
+        """ Finds a random start to our sentence using the end keys list.
+        :return:        A key to use in order to construct the start of a sentence
+        """
+        return self.sentence_ends[random.randint(0, len(self.sentence_ends) - 1)]
 
 
 class Listogram(list):
