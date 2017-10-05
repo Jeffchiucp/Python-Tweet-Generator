@@ -2,15 +2,14 @@
 """main script, uses other modules to generate sentences"""
 from random import randint
 from flask import Flask, request, render_template, json
-import helper
-from python_script import sample
-from python_script import markov
-from python_script import Histogram_oop 
-from Histogram_oop import Dictogram
+import cleanup
+import markov
+# from python_script.markov
+from python_script.histogram_oop import Dictogram
+# from dictogram import Dictogram
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Table
 #import twitter
-from dictogram import Dictogram
 import time
 import os
 
@@ -20,7 +19,10 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-shakespeare_dictogram = Dictogram('./text/output_data.txt')
+file_name = '/Users/jchiu/Desktop/Make/Term1/CS2/Python-Tweet-Generator/text/complete_cleaned.txt'
+cleaned_file = cleanup.clean_file(file_name)
+markov_chain = markov.markov_model(cleaned_file)
+
 class Tweet(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     content = db.Column(db.String(200), unique=True)
@@ -35,7 +37,7 @@ class Tweet(db.Model):
 def index():
     if request.method == 'GET':
         num = request.args.get('num', default = 15, type = int)
-        tweet = helper.random_sentence()
+        tweet = markov.generate_sentence(15, markov_chain)
         #tweet = dictogram.generate_sentence(num)
         #random_sentence = markov.generate_random_sentence_n(140, data_structure)
 
@@ -54,11 +56,10 @@ def fav():
     # this function gets content of tweets in db
     tweets_list = Tweet.query.all()
     tweet_strings = []
-    print("Printing all content")
+    # print("Printing all content")
     for tweet in tweets_list:
         tweet_strings.append(tweet.content)
     return render_template('favorites.html', tweet=tweet_strings)
-
 
 def addFavoriteTweet(tweet_content):
     tweet = Tweet(tweet_content)
