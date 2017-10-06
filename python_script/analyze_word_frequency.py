@@ -25,7 +25,7 @@ def histogram(source):
 def unique_words(histogram):
     """ check unique words check if the word only appears once"""
     """Need to fix the bug"""
-    # return len(histogram)
+    return len(histogram)
 
 def frequency(word, histogram): #1
 # The method get() returns a value for the given key.

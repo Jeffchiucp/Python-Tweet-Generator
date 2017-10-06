@@ -10,12 +10,9 @@ Used dictionary as my data structure to create the histogram
 
 
 def create_histogram(text):
-    """ create the histogram"""
     histogram = {}
     for word in text.split(' '):
         word = word.lower()
-        # if words are not in dictionary,
-        # then we assign it to 1
 
         if word in histogram:
             histogram[word] += 1
@@ -45,11 +42,9 @@ if __name__ == "__main__":
     source = open(filename, 'r').read()
 
     graph = create_histogram(source)
-    output_file = open('./complete1.txt', 'w')
+    output_file = open('../text/output_data.txt', 'w')
     for key in sorted(graph.keys()):
         output_file.write(key + " " + str(graph[key]) + '\n')
     output_file.close()
 """ test cases"""
-#print(unique_words(source))
-#print((frequency("death", histogram), histogram))
 print(unique_words(source))

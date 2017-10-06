@@ -34,18 +34,16 @@ class Dictogram(dict):
         random_key = random.sample(self, 1)
         return random_key[0]
 
-    def return_weighted_random_word(self):
+    def return_weighted_word(self):
         #return random word from the weight probabilities
         random_weight = random.randint(0, self.tokens-1)
         #test index
         index = 0
         words_list = list(self.keys())
         # uncommeting to test the type
-        # import pdb; pdb.set_trace()
+        import pdb; pdb.set_trace()
         print('keys:', words_list)
         print('type:', type(words_list))
-        # for i in range(0, self.types):
-        #     word = words_list[i]
         for word in words_list:
             index += self[word]
             # print (index)
@@ -104,7 +102,7 @@ class Listogram(list):
 
 
 def test_histogram(text_list):    
-    import pdb; pdb.set_trace()
+    # import pdb; pdb.set_trace()
     print('text list:', text_list)
     hist_dict = Dictogram(text_list)
     print('dictogram:', hist_dict)

@@ -25,6 +25,7 @@ class Markov:
 
     def update(self, iterable):
         """Takes a list of lines and processes them into nodes"""
+        pass
 
     def generate_sentence(self):
     	pass
@@ -45,18 +46,9 @@ class Markov:
         words = list()
         words.append(self.get_next('[START]'))
 
-        while True:
-            next_word = self.get_next(words[len(words) - 1])
-            if next_word == '[END]':
-                break
-            words.append(next_word)
 
-        sentence = " ".join(words)
-        if len(sentence) < 30 or len(sentence) > 140:
-            return self.generate_sentence()
-        return sentence
         
-"""markov function class that is working progress"""
+"""Refactoring my markov function class that is working progress"""
 def markov_model(data):
 	"""markov model for 1st ordergi"""
 	markov_chain = dict()
@@ -65,18 +57,20 @@ def markov_model(data):
 			markov_chain[data[index]].update([data[index + 1]])
 		else:
 			markov_chain[data[index]] = Dictogram([data[index + 1]])
-	import pdb; pdb.set_trace()
 	return markov_chain
+
  
 def get_start_token(markov):
 	"""create a random starting word as our token start"""
 	# import pdb; pdb.set_trace()
 	print('keys:', list(markov.keys()))
-	print('type:', type(markov.keys()))    
+	print('type:', type(markov.keys())) 
+	import pdb; pdb.set_trace()
 	return random.choice(list(markov.keys()))
 
 def get_stop_token(markov):
 	"""create a stop token for the end of the sentence"""
+	next_word == '[END]'
 	pass
 
 def generate_sentence(length, markov_model):
@@ -92,7 +86,7 @@ def generate_sentence(length, markov_model):
 		#uncomment to do
 		print ("___________________")
 		print (current_dictogram)
-		random_word = current_dictogram.return_weighted_random_word()
+		random_word = current_dictogram.return_weighted_word()
 		current_word = random_word
 		print ("___________________")
 		print ('my current word: ' + current_word)
@@ -106,7 +100,7 @@ if __name__ == '__main__':
 	# testing my codes using pdb
 	# start_words = get_start_token(cleaned_file)
 	# testing with Dr. Sessus words 
-	file_name = '/Users/jchiu/Desktop/Make/Term1/CS2/Python-Tweet-Generator/text/fish.txt'
+	file_name = '../text/fish.txt'
 	cleaned_file = cleanup.clean_file(file_name)
 	markov_chain = markov_model(cleaned_file)
 	print (generate_sentence(11, markov_chain))

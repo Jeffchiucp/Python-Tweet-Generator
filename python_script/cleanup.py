@@ -1,10 +1,7 @@
-import re
-
-# Takes: Freshly split list | Returns: Clean list of words
-"""cleannig up files for the raw text. Credit from Sam and Elmer"""
 import sys
 import re
-
+# Takes: Freshly split list | Returns: Clean list of words
+"""cleannig up files for the raw text. Code Credit from Sam Gazilla"""
 
 def clean_file(filename):
     data_file = open(filename, 'r')
@@ -16,7 +13,6 @@ def clean_file(filename):
     for match in matches:
         result_list.append(match)
     return result_list
-# added a new line
 
 def remove_punctuation(text):
     no_punc_text = re.sub('[,.()]', '', text)

@@ -91,8 +91,9 @@ def generate_sentence(length, markov_model):
 		current_dictogram = markov_model[current_word]
 		#uncomment to do
 		print ("___________________")
+		print ('my current dictogram: ')
 		print (current_dictogram)
-		random_word = current_dictogram.return_weighted_random_word()
+		random_word = current_dictogram.return_weighted_word()
 		current_word = random_word
 		print ("___________________")
 		print ('my current word: ' + current_word)

@@ -2,16 +2,18 @@
 """main script, uses other modules to generate sentences"""
 from random import randint
 from flask import Flask, request, render_template, json
-import cleanup
+from python_script import sample
 import markov
-# from python_script.markov
-from python_script.histogram_oop import Dictogram
-# from dictogram import Dictogram
+# from python_script import markov
+# from python_script import Histogram_oop 
+# from Histogram_oop import Dictogram
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Table
 #import twitter
+from dictogram import Dictogram
 import time
 import os
+import cleanup
 
 app = Flask(__name__, instance_relative_config=True)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
@@ -40,7 +42,6 @@ def index():
         tweet = markov.generate_sentence(15, markov_chain)
         #tweet = dictogram.generate_sentence(num)
         #random_sentence = markov.generate_random_sentence_n(140, data_structure)
-
         global currentTweet
         currentTweet = tweet
         return render_template('index.html', tweet=tweet, time=time.time)
@@ -56,10 +57,11 @@ def fav():
     # this function gets content of tweets in db
     tweets_list = Tweet.query.all()
     tweet_strings = []
-    # print("Printing all content")
+    print("Printing all content")
     for tweet in tweets_list:
         tweet_strings.append(tweet.content)
     return render_template('favorites.html', tweet=tweet_strings)
+
 
 def addFavoriteTweet(tweet_content):
     tweet = Tweet(tweet_content)
@@ -76,5 +78,7 @@ def clear_data(session):
 
 if __name__ == "__main__":
     db.create_all()
+    # app.run()
+    # import pdb; pdb.set_trace()
     port = int(os.environ.get('PORT', 5000))
     app.run(debug=True, host='0.0.0.0', port=port)
