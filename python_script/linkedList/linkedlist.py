@@ -87,27 +87,7 @@ class LinkedList(object):
         last_node = None
 
         #testing out this one
-        while (current is not None) and (current.data is not item):
-            last_node = current
-            current = current.next
 
-        if current is None:
-            raise ValueError("Could not find %s in List." % (item))
-
-        if current == self.head and current == self.tail:
-            self.head = None
-            self.tail = None
-        elif current == self.head:
-            self.head = current.next
-            current.next = None
-        elif current == self.tail:
-            self.tail = last_node
-            last_node.next = None
-        else:
-            last_node.next = current.next
-            current.next = None
-
-        self.nodeCount -= 1
 
         return 'Deleted item'
 
@@ -123,15 +103,6 @@ class LinkedList(object):
         return None
 
     def replace(self, quality, new_data):
-        current = self.head
-
-        while current is not None:
-            if quality(current.data):
-                current.data = new_data
-                return
-            current = current.next
-
-        self.append(new_data)
 
 
 def test_linked_list():
