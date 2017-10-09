@@ -84,6 +84,7 @@ class LinkedList(object):
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError"""
         previous = None
+        current = self.head
         while current is not None:
             if current.data == item:
                 if current is not self.head and current is not self.tail:
@@ -114,7 +115,7 @@ class LinkedList(object):
         return None
 
     def replace(self, quality, new_data):
-
+        pass
 
 def test_linked_list():
     ll = LinkedList()
