@@ -47,7 +47,7 @@ def index():
         return render_template('index.html', tweet=tweet, time=time.time)
     elif request.method == 'POST':
         # if currentTweet not in db:
-            # addFavoriteTweet(currentTweet)
+        addFavoriteTweet(currentTweet)
         return render_template('index.html', tweet=currentTweet, time=time.time)
 
 """main script, uses other modules to generate sentences"""
@@ -79,6 +79,5 @@ def clear_data(session):
 if __name__ == "__main__":
     db.create_all()
     # app.run()
-    # import pdb; pdb.set_trace()
     port = int(os.environ.get('PORT', 5000))
     app.run(debug=True, host='0.0.0.0', port=port)

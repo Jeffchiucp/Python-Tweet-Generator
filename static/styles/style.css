@@ -1,11 +1,24 @@
-.button {
+.container {
   width: calc(100% - 4em);
   max-width: 500px;
-  margin: auto;
+  margin: left;
 }
 
 .tweet {
 
+}
+
+
+
+#quote {
+
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    text-align: left;
+    /* Change width */
+    width: 500px;
+    min-height: calc(100% - 100px);
 }
 
 form {
@@ -14,5 +27,5 @@ form {
 }
 
 p {
-  color: blue;
+  color: black;
 }
