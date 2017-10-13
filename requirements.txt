@@ -8,3 +8,6 @@ psycopg2==2.7.3.1
 SQLAlchemy==1.1.14
 Werkzeug==0.12.2
 gunicorn==19.7.1
+python-dotenv==0.7.1
+oauthlib==2.0.4
+requests-oauthlib==0.8.0
