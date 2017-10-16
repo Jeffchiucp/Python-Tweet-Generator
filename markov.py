@@ -106,7 +106,7 @@ if __name__ == '__main__':
     # testing my codes using pdb
     # start_words = get_start_token(cleaned_file)
     # testing with Dr. Sessus words 
-    file_name = '/Users/jchiu/Desktop/Make/Term1/CS2/Python-Tweet-Generator/text/fish.txt'
+    file_name = '/Users/jchiu/Desktop/Make/Term1/CS2/Python-Tweet-Generator/text/shakespeare.txt'
     cleaned_file = cleanup.clean_file(file_name)
     markov_chain = markov_model(cleaned_file)
     print (generate_sentence(11, markov_chain))

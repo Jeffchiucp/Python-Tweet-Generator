@@ -1,22 +1,38 @@
 ### Tweet Generator
 ### Project Organization
+# Markov Model
+
+A light weight Markov Model implemented into python
+
+## Usage
+Avaliable online at shakespeare-tweet.herokuapp.com
 
 **What are the key features of the application? Are these clearly separated into their own files, classes, and/or modules?**
-- The application returns a set of randomly generated word(s) based on how often they show up from the source file. Though not its main functionality, it can also see how often a specific word shows up in a body of text, how many unique words there are, and print out a list of words and their occurrences.
-- Each file is a module! It's separated into:
+
     -`app.py` - main script for my Flask Server, it uses other modules to generate sentences 
     -`cleanup.py` - module for cleaning up source text and generates corpus.txt
     - `histogram.py` - grabs a list of words from a body of text
-    - `histogram_oop.py` - refactoring histogram class to Dictogram class which helps to generates the random_weighted_words
+    - `dictogram.py` - refactoring histogram class to Dictogram class which helps to generates the random_weighted_words
     - `sample.py` - handles all the percentage handling and creating a list of words+occurrences and makes a text file for it.
-    - `markov_chain.py` - Markov model module generating tweet sentence word from generate_markov_model 
+    - `markov.py` - Markov model module generating tweet sentence word from generate_markov_model 
 
 - In Progress Code
-    - `tokenize.py` # module for creating lists of tokens from a text
-    - `markov_chain.py` # Markov model module generating a sentence word
-    - `app.py` # allows tweeter option 
+    - `crawler.py` # module for creating lists of tokens from a text
+    - `markov.py` # Markov model module generating a sentence word
+    - `twitter.py` # calling the Twitter API  
+
+
+## Todo
+
+- Create Twitter Bot for the Tweet Generator
+- Remove coupling with Dictogram and MarkovModel. Change class to MarkovChain
+- Routing Folder
+- Make Developer Console that I can delete favorites or clear them.
+- Something about markov chains
+
 
 **Are the names of files, modules, functions, and variables appropriate and accurate? Would a new programmer be able to understand the names without too much contextual knowledge?** 
+
 - Yes. I think they are clearly separated after code review. 
 Reader should see it with Clear, semantic variable names. The new programmer can understand and there's no need to go through the comments to understand my codes.
 

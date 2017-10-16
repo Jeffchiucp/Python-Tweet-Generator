@@ -31,32 +31,33 @@
     <div class="container">
         <p> {{tweet}} </p>
         
-        <button class="btn" style="padding:  0.5em 1em;"> Generate Tweet </button>
-        <button class="btn"> Favorite </button>
-        <button class="btn" type="submit" id="all_favorite_button"> See All Favorites </button>
-    </div>
+        <button class="btn" style="padding :  0.5em 1em;" id="quote_button" onclick="refreshSentence()" > Generate a new quote </button>
+        <button class="btn" style="padding :  0.5em 1em;"  type="submit" id="tweet_button"  onclick="tweet()" > Tweet Button  </button>
+        <button class="btn" style="padding :  0.5em 1em;" type="submit" id="all_favorite_button" onclick="favorite()"> Add to Favorites </button> </div>
 
 
     <div id="about">
         <div class="header">
         </div>
         <br>
-        <center><a href="https://github.com/jeffchiucp">This project</a> was made by Jeff Chiu <a href="https://github.com/Jeffchiucp/Python-Tweet-Generator" <="" a=""> using Markov Chains.
-        </a></center><a href="https://github.com/Jeffchiucp/Python-Tweet-Generator" <="" a="">
-        <right>The Corpus I used was has  lines of text and  words. 
+        <center><a href="https://github.com/jeffchiucp"> William ShakeSpeare Tweet Generator</a> <a href="https://github.com/Jeffchiucp/Python-Tweet-Generator" </a> </a> using Markov Chains.
+
+        <right>The Corpus I used was has {{lines}} lines of text and {{words}} words. It was taken from the Complete William Shakespeare plays 
         </right>
 
         <div>
+        <right>                         Favorite Tweets!!!!!
+        </right>
+
         </div>
         <div id="favorites">
 
         </div>
-    </a></div><a href="https://github.com/Jeffchiucp/Python-Tweet-Generator" <="" a="">
+    </div>
 
     <div style="float: left">
         <input placeholder="Sentence Length" id="length">
     </div>
-</a></div><a href="https://github.com/Jeffchiucp/Python-Tweet-Generator" <="" a="">
 
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -64,7 +65,18 @@
     //create an random to make sure that everytime that I get the tweet and generous
     var id = 0, favorites = [];
 
-    console.log($("#all_favorite_button"));
+    // console.log($("#all_favorite_button"));
+    $("body").on('click', '#quote_button', function(e){
+        console.log("quote button clicked!!!!!!");
+        e.preventDefault();
+        console.log($("#quote_button"));
+
+    });
+    $("body").on('click', '#tweet_button', function(e){
+        console.log("tweet button clicked!!!!!!");
+        e.preventDefault();
+        console.log($("#tweet_button")); //this is post to Twitter.py
+    });
 
     $("body").on('click', '#all_favorite_button', function(e){
         console.log("favorite button clicked!!!!!!");
@@ -76,30 +88,31 @@
         console.log("refreshSentence")
         var length = document.getElementById('length');
 
-        $.post("favorites", { words: length.value }, function(data){
+        $.post("get_tweet", { words: length.value }, function(data){
+            if (!data.success || data === undefined){
+                console.log("refreshSentence is not Successful")
+                return
+            }
             console.log(data);
         });
-
-
-        // $.ajax({
-        //     url: "new",
-        //     method: "post",
-        //     contentType: 'application/json',
-        //     data: JSON.stringify({
-        //         words: length.value
-        //     }),
-        //     dataType: 'json',
-        // }).done(function (object) {
-        //     var text = document.getElementById('sentence');
-        //     if (object.'success' === true) {
-        //         text.innerHTML = '"' + object['data'] + '"';
-        //         id = object['id'];
-        //         console.log(object['data'])
-        //     } else {
-        //         alert("Internal Error!");
+        // get the tweet data and transform it to json object
+        // $.get("get_tweet", { words: length.value }, function(data){
+        //     if (!data.success || data === undefined){
+        //         console.log("refreshSentence is not Successful")
+        //         return
         //     }
+        //     console.log(data);
         // });
-    }
+        //post to the twitter API on the back-end side and transform it to json object
+
+        // $.post("tweet", { words: length.value }, function(data){
+        //     if (!data.success || data === undefined){
+        //         console.log("refreshSentence is not Successful")
+        //         return
+        //     }
+        //     console.log(data);
+        // });
+        }
     function tweet() {
         var length = document.getElementById('length');
         $.ajax({
@@ -119,6 +132,38 @@
             }
         });
     }
+        // $.ajax({
+        //     url: "new",
+        //     method: "post",
+        //     contentType: 'application/json',
+        //     data: JSON.stringify({
+        //         words: length.value
+        //     }),
+        //     dataType: 'json',
+        // }).done(function (object) {
+        //     var text = document.getElementById('sentence');
+        //     if (object.'success' === true) {
+        //         text.innerHTML = '"' + object['data'] + '"';
+        //         id = object['id'];
+        //         console.log(object['data'])
+        //     } else {
+        //         alert("Internal Error!");
+        //     }
+        // });
+
+    $.ajax({
+        url: "favorites",
+        method: "GET"
+    }).done(function (object) {
+        var text = document.getElementById('favorites');
+        if (object['success'] === true) {
+            for (var i = 0; i < object.data.length; i++) {
+                text.innerHTML += object.data[i];
+            }
+        } else {
+            text.innerHTML = "INTERNAL ERROR!"
+        }
+    });
     function favorite() {
         var length = document.getElementById('length');
         $.ajax({
@@ -139,17 +184,4 @@
             }
         });
     }
-    $.ajax({
-        url: "favorites",
-        method: "GET"
-    }).done(function (object) {
-        var text = document.getElementById('favorites');
-        if (object['success'] === true) {
-            for (var i = 0; i < object.data.length; i++) {
-                text.innerHTML += "- " + object.data[i] + "<br>"
-            }
-        } else {
-            text.innerHTML = "INTERNAL ERROR!"
-        }
-    });
 </script>
