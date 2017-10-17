@@ -1,3 +1,4 @@
+
 import cleanup
 from histogram_oop import Dictogram
 from random import choice
@@ -68,10 +69,10 @@ def get_start_token(markov):
 	import pdb; pdb.set_trace()
 	return random.choice(list(markov.keys()))
 
-def get_stop_token(markov):
-	"""create a stop token for the end of the sentence"""
-	next_word == '[END]'
-	pass
+# def get_stop_token(markov):
+# 	"""create a stop token for the end of the sentence"""
+# 	next_word == '[END]'
+# 	pass
 
 def generate_sentence(length, markov_model):
 	# input variable is the length of the sentence
