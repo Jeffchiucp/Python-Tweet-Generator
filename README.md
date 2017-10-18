@@ -18,7 +18,7 @@ Avaliable online at shakespeare-tweet.herokuapp.com
 
 - In Progress Code
     - `crawler.py` # module for creating lists of tokens from a text
-    - `markov.py` # Markov model module generating a sentence word
+    - `markov.py` # Markov model module generating a sentence word from 81490 Shakespeare corpus
     - `twitter.py` # calling the Twitter API  
 
 
