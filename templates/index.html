@@ -29,7 +29,9 @@
         <div class="text">
 
     <div class="container">
-        <p> {{tweet}} </p>
+            <div id="sentence">
+                "{{ sentence }}"
+            </div>
         
         <button class="btn" style="padding :  0.5em 1em;" id="quote_button" onclick="refreshSentence()" > Generate a new quote </button>
         <button class="btn" style="padding :  0.5em 1em;"  type="submit" id="tweet_button"  onclick="tweet()" > Tweet Button  </button>
@@ -42,7 +44,7 @@
         <br>
         <center><a href="https://github.com/jeffchiucp"> William ShakeSpeare Tweet Generator</a> <a href="https://github.com/Jeffchiucp/Python-Tweet-Generator" </a> </a> using Markov Chains.
 
-        <right>The Corpus I used was has {{lines}} lines of text and {{words}} words. It was taken from the Complete William Shakespeare plays 
+        <right>The Corpus I used was has 100,000 lines of text and 835,000 words. It was taken from the Complete William Shakespeare plays 
         </right>
 
         <div>
@@ -63,46 +65,63 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
     //create an random to make sure that everytime that I get the tweet and generous
-    var id = 0, favorites = [];
+    var id = 0, favorites = []; 
 
     // console.log($("#all_favorite_button"));
     $("body").on('click', '#quote_button', function(e){
         console.log("quote button clicked!!!!!!");
         e.preventDefault();
+        new();
         console.log($("#quote_button"));
 
     });
     $("body").on('click', '#tweet_button', function(e){
         console.log("tweet button clicked!!!!!!");
-        e.preventDefault();
-        console.log($("#tweet_button")); //this is post to Twitter.py
+        tweet()
+        // e.preventDefault();
+        // console.log($("#tweet_button")); //this is post to Twitter.py
     });
 
     $("body").on('click', '#all_favorite_button', function(e){
         console.log("favorite button clicked!!!!!!");
         e.preventDefault();
-        refreshSentence();
+        favorite();
     });
     /****/
     function refreshSentence() {
-        console.log("refreshSentence")
+        console.log("refreshSentence");
         var length = document.getElementById('length');
-
-        $.post("get_tweet", { words: length.value }, function(data){
-            if (!data.success || data === undefined){
-                console.log("refreshSentence is not Successful")
-                return
+        $.ajax({
+            url: "new",
+            method: "post",
+            contentType: 'application/json',
+            data: JSON.stringify({
+                words: length.value
+            }),
+            dataType: 'json',
+        }).done(function (object) {
+            var text = document.getElementById('sentence');
+            if (object['success'] === true) {
+                text.innerHTML = '"' + object['data'] + '"';
+                id = object['id'];
+            } else {
+                alert("Internal Error!");
             }
-            console.log(data);
         });
-        // get the tweet data and transform it to json object
-        // $.get("get_tweet", { words: length.value }, function(data){
-        //     if (!data.success || data === undefined){
-        //         console.log("refreshSentence is not Successful")
-        //         return
-        //     }
-        //     console.log(data);
-        // });
+    }
+
+    // function refreshSentence() {
+    //     console.log("refreshSentence")
+    //     var length = document.getElementById('length');
+
+
+    //     $.get("new", { words: length.value }, function(data){
+    //         if (!data.success || data === undefined){
+    //             console.log("refreshSentence is not Successful")
+    //             return
+    //         }
+    //         console.log(data);
+    //     });
         //post to the twitter API on the back-end side and transform it to json object
 
         // $.post("tweet", { words: length.value }, function(data){
@@ -112,7 +131,7 @@
         //     }
         //     console.log(data);
         // });
-        }
+        // }
     function tweet() {
         var length = document.getElementById('length');
         $.ajax({
@@ -128,7 +147,7 @@
             if (object['success'] === true) {
                 alert("Tweet Successful");
             } else {
-                alert("Internal Error!");
+                alert("Tweet Error!");
             }
         });
     }
@@ -184,4 +203,18 @@
             }
         });
     }
+
+    $.ajax({
+        url: "favorites",
+        method: "GET"
+    }).done(function (object) {
+        var text = document.getElementById('favorites');
+        if (object['success'] === true) {
+            for (var i = 0; i < object.data.length; i++) {
+                text.innerHTML += "- " + object.data[i] + "<br>"
+            }
+        } else {
+            text.innerHTML = "INTERNAL ERROR!"
+        }
+    });
 </script>
