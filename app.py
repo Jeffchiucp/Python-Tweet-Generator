@@ -15,7 +15,6 @@ import os
 Remove SQLAlchemy (SQLlite3)database and use Postgres Database instead
 Heroku supports Postgres store current tweets in the sqlite db 
 tweets is the list of tweet storage for the tweet string generating
-# Create an Postgres Table Tweet
 old route / handle both Get and Post request index handles 
 the Get request for Word Generation 
 changes the routes so user don't have to refresh every time 
@@ -37,8 +36,6 @@ conn = psycopg2.connect("dbname=d2bggd7r2dh3bk user=mjbapfvphmennc password=" +
 cur = conn.cursor()
 cur.execute("SELECT * FROM Tweets;")
 tweets = []
-
-
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -118,7 +115,5 @@ def generate_new_tweet():
         "data": sentence,
         "id": len(tweets) - 1
     })
-
-
 if __name__ == "__main__":
     app.run(debug = True)
