@@ -1,7 +1,7 @@
 import requests
 
-DIFFBOT_API_URL = 'http://api.diffbot.com/v3/article'
-DIFFBOT_DEV_TOKEN = 'e264b8d5a09de9aa40574ed1eba99eb1'
+# DIFFBOT_API_URL = 'http://api.diffbot.com/v3/article'
+# DIFFBOT_DEV_TOKEN = 'put your api'
 
 def get_article(article_url):
     # set request params for API request

@@ -1,6 +1,6 @@
-### Tweet Generator
-### Project Organization
-# Markov Model
+# Tweet Generator
+## Project Organization
+### Markov Model
 
 A light weight Markov Model implemented into python
 

@@ -123,7 +123,5 @@ def list_of_words(length):
 if __name__ == '__main__':
     import sys
     arguments = sys.argv[1:]  
-    # exclude script name in first argument
-    #uncomment to test the data and word
-    data = ['one', 'fish', 'two', 'fish', 'red', 'fish', 'blue', 'fish']
-    test_histogram(data)
+    words = ['one', 'fish', 'two', 'fish', 'red', 'fish', 'blue', 'fish']
+    test_histogram(words)

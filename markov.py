@@ -1,13 +1,14 @@
 import cleanup
-from dictogram import Dictogram 
+from dictogram import Dictogram
 from random import choice
+from collections import deque
 import random
+import re
 
 """
 Markov Chain Code Reference to Alex Dejeu's article and sample code from HackerNoon
 https://hackernoon.com/from-what-is-a-markov-model-to-here-is-how-markov-models-work-1ac5f4629b71
-Refactoring 1st Order Markov Model using python3.6
-# Used Dictorgram class to access my histogram
+Refactoring nth Order Markov Model using python3.6
 #1 Used dictionary as data structure to create the markov chain
 #2 For every word in the cleaned file - go through and update a historgram for the value
 #3 Generate those tokens inside each historgram. 
@@ -15,69 +16,56 @@ Refactoring 1st Order Markov Model using python3.6
 #5 set uzp and the if else statement and acces sets those words to the Dictogram inside our list
 #6 Converting Markov to class object
 """
-class Markov:
-
-    def __init__(self, iterable):
-        """Initialize with an empty dictionary of word nodes.
-        """
-        self.nodes = {}
-        self.update(iterable)
-
-    def update(self, iterable):
-        """Takes a list of lines and processes them into nodes"""
-
-    def generate_sentence(self):
-        pass
-
-    def update_node(self, word, next_word):
-        if word in self.nodes:
-            self.nodes[word].update([next_word])
-        else:
-            self.nodes[word] = Dictogram([next_word])
-
-    def get_next(self, current_word):
-        dictogram = self.nodes.get(current_word, None)
-        if dictogram is None:
-            return '[END]'
-        return dictogram.get_random_word()
-
-    def generate_sentence(self):
-        words = list()
-        words.append(self.get_next('[START]'))
-
-        while True:
-            next_word = self.get_next(words[len(words) - 1])
-            if next_word == '[END]':
-                break
-            words.append(next_word)
-
-        sentence = " ".join(words)
-        if len(sentence) < 30 or len(sentence) > 140:
-            return self.generate_sentence()
-        return sentence
 
 """markov function class that is working progress"""
-def markov_model(data):
-    """markov model for 1st ordergi"""
+def markov_model(words):
+    """markov model for 1st order"""
     markov_chain = dict()
-    for index in range(0, len(data) - 1):
-        if data[index] in markov_chain:
-            markov_chain[data[index]].update([data[index + 1]])
+    for index in range(0, len(words) - 1):
+        word = words[index]  # ex: 'fish'
+        next_word = words[index + 1]  # ex: 'red'
+        if word in markov_chain:
+            markov_chain[word].update([next_word])
         else:
-            markov_chain[data[index]] = Dictogram([data[index + 1]])
+            markov_chain[word] = Dictogram([next_word])
     return markov_chain
- 
+
+def make_higher_order_markov_model(order, words):
+    markov_model = dict()
+    for index in range(0, len(words) - order):
+        # Create the window
+        words_list = words[index : index + order]  # ex: ['fish', 'red']
+        # import pdb; pdb.set_trace()
+        next_word = words_list[1]  # ex: 'fish'
+        window = tuple(words)  # ex: ('fish', 'red')
+        print ("___________________")
+        print ('my current word: ' + next_word)
+        if window in window:
+            # We have to just append to the existing histogram?
+            markov_model[window].update([next_word])
+        else:
+            markov_model[window] = Dictogram([next_word])
+    return markov_model
+
+
+# figure out how does this work right now.
+# which model am I using at this point 
+def generate_random_start(model):
+    # To generate a "valid" starting word use:
+    # Valid starting words are words that started a sentence in the corpus
+    if 'end' in model:
+        seed_word = 'end'
+        while seed_word == 'end':
+            seed_word = model['end'].return_weighted_random_word()
+        return seed_word
+    return random.choice(list(model.keys()))
+
 def get_start_token(markov):
     """create a random starting word as our token start"""
     # import pdb; pdb.set_trace()
     print('keys:', list(markov.keys()))
-    print('type:', type(markov.keys()))    
+    print('type:', type(markov.keys())) 
     return random.choice(list(markov.keys()))
-
-
-def get_stop_token(markov):
-    """create a stop token for the end of the sentence"""
-    pass
 
 def generate_sentence(length, markov_model):
     # input variable is the length of the sentence
@@ -85,11 +73,12 @@ def generate_sentence(length, markov_model):
     # loop through the dictogram and append the current word to the previous word
     # join the sentences to form a word
     # returns the sentence
-    current_word = get_start_token(markov_model)
+    current_word = generate_random_start(markov_model)
     sentence = [current_word]
     for i in range(0, length):
         current_dictogram = markov_model[current_word]
         #uncomment to do
+
         print ("___________________")
         print (current_dictogram)
         random_word = current_dictogram.return_weighted_random_word()
@@ -100,13 +89,87 @@ def generate_sentence(length, markov_model):
     return ' '.join(sentence) + '.'
     return sentence
 
+
+
+def generate_random_sentence_n(length, markov_model):
+    # Length denotes the max amount of chars
+    # connect to twitter API
+    current_window = get_start_token(markov_model)
+    sentence = [current_window[0]]
+    tweet = ''
+
+    valid_tweet_flag = True
+    sentence_count = 0
+    while valid_tweet_flag:
+        # We will generate random sentences until we decide we can not any more
+        current_dictogram = markov_model[current_window]
+        random_weighted_word = current_dictogram.return_weighted_random_word()
+
+        current_window_deque = deque(current_window)
+        current_window_deque.popleft()
+        current_window_deque.append(random_weighted_word)
+        current_window = tuple(current_window_deque)
+        sentence.append(current_window[0])
+        print ('my current word inside windows: ' + str(current_window[1]))
+        print ('my current window: ' + str(current_window))
+        if current_window[1] == 'end' or current_window[1] == '[end]':
+            sentence_string = ' '.join(sentence)
+            sentence_string = re.sub('end', '. ', sentence_string, flags=re.IGNORECASE)
+            sentence_string = sentence_string.capitalize()
+            new_tweet_len = len(sentence_string) + len(tweet)
+
+            if sentence_count == 0 and new_tweet_len < length:
+                # We should add this sentence to the tweet and move on to
+                # make another
+                tweet += sentence_string
+                sentence_string = ' '.join(sentence)
+                sentence_count += 1
+                current_window = generate_random_start(markov_model)
+                sentence = [current_window[0]]
+            elif sentence_count == 0 and new_tweet_len >= length:
+                # forget the sentence and generate a new one :P
+                current_window = generate_random_start(markov_model)
+                sentence = [current_window[0]]
+            elif sentence_count > 0 and new_tweet_len < length:
+                # More than one sentence. and length is still less max
+                # Get another new sentence
+                tweet += sentence_string
+                sentence_string = ' '.join(sentence)
+                sentence_count += 1
+                current_window = generate_random_start(markov_model)
+                sentence = [current_window[0]]
+            else:
+                # Return this good good tweet
+                return tweet
+                import pdb; pdb.set_trace()
+                print(tweet)
+
+
+def get_sentence_starters(file):
+    result = []
+    for i in range(0, len(file)-2):
+        if file[i] == 'end':
+            result.append(file[i+1])
+    return result
+
+
 if __name__ == '__main__':
     # filename = argv[1]
     # _file = open(filename, 'r')
     # testing my codes using pdb
     # start_words = get_start_token(cleaned_file)
     # testing with Dr. Sessus words 
-    file_name = '/Users/jchiu/Desktop/Make/Term1/CS2/Python-Tweet-Generator/text/shakespeare.txt'
+    file_name = 'text/fish.txt'
     cleaned_file = cleanup.clean_file(file_name)
-    markov_chain = markov_model(cleaned_file)
-    print (generate_sentence(11, markov_chain))
+
+# uncomment to test the nth order markov chains
+# start_words = get_sentence_starters(cleaned_file)
+# markov_model_nth = make_higher_order_markov_model(2, cleaned_file)
+# for key in markov_model_nth:
+#     print('key:', key)
+#     print('type:', type(key))
+#     print(key, markov_model_nth[key])
+#     print('markov_model_nth[key]:', markov_model_nth[key])
+#     print('markov_model_nth[key] type:', type(markov_model_nth[key]))
+# import pdb; pdb.set_trace()
+# print(generate_random_sentence_n(50, markov_model_nth))
