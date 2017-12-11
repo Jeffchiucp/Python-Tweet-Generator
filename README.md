@@ -10,16 +10,21 @@ Contributers&ensp;·&ensp;[Jeff Chiu](https://jeffchiucp.github.io/portfolio/)
 Installation is super friendly using `pip`
 
 ```
-$ pip install TableMongo
+$ pip install 
+$ python app.py
+```
+
+### Deployment
+Install the Heroku toolbelt.
+```
+heroku create myapp
+git push heroku master
 ```
 
 ## Documentation
 
 * [Quickstart](./quickstart.md)
 
-
-
-A light weight Markov Model implemented into python
 
 ## Usage
 Avaliable online at https://shakespeare-tweet.herokuapp.com
