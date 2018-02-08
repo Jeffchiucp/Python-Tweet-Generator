@@ -14,6 +14,8 @@ import os
 """ Code changes 
 Remove SQLAlchemy (SQLlite3)database and use Postgres Database instead
 Heroku supports Postgres store current tweets in the sqlite db 
+# https://hackernoon.com/from-what-is-a-markov-model-to-here-is-how-markov-models-work-1ac5f4629b71?gi=fffbc546fa6b
+# Markov Chain
 tweets is the list of tweet storage for the tweet string generating
 old route / handle both Get and Post request index handles 
 the Get request for Word Generation 
@@ -21,6 +23,10 @@ changes the routes so user don't have to refresh every time
 route /tweet handles the post request for the twitter API
 route /favorites handles all the favorite tweet data
 route / get_tweet helps to get new tweet when the button is being clicked
+
+Included Source Citation:
+Copied Postgres Codes and Tweet Routes from Avery GitHub
+https://github.com/Avery246813579/Obama-Speech-Quote-Generator/blob/master/app.py
 
 """
 
