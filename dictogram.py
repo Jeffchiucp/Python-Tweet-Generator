@@ -17,7 +17,6 @@ class Dictogram(dict):
     def update(self, iterable):
         """Update this histogram with the items in the given iterable"""
         for item in iterable:
-            # TODO: increment item count
             self.tokens += 1
             if item in self:
                 self[item] += 1
@@ -27,7 +26,6 @@ class Dictogram(dict):
 
     def count(self, item):
         """Return the count of the given item in this histogram, or 0"""
-        # TODO: retrieve item count
         return self.get(item, 0)
 
     def return_random_word(self):
@@ -123,5 +121,4 @@ def list_of_words(length):
 if __name__ == '__main__':
     import sys
     arguments = sys.argv[1:]  
-    words = ['one', 'fish', 'two', 'fish', 'red', 'fish', 'blue', 'fish']
-    test_histogram(words)
+    #test_histogram(words)
