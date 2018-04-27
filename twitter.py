@@ -19,7 +19,7 @@ session = OAuth1Session(consumer_key,
 url = 'https://api.twitter.com/1.1/statuses/update.json'
 
 # The contents of status (i.e. tweet text)
-status = 'Hello World!'
+status = 'Welcome to Shakespeare Tweet'
 
 # Send a POST request to the url with a 'status' parameter
 resp = session.post(url, { 'status': status })
