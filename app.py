@@ -55,12 +55,10 @@ def index():
     # how to store them in the database? I'm not sure
 
 """main script, uses various different routes modules to generate sentences"""
-# cal the tweet method
 
 @app.route('/tweet', methods=['POST'])
 def tweet():
     body = json.loads(request.data)
-    # noinspection PyBroadException
     try:
         twitter.tweet = tweets[body['tweet']]
         twitter.tweet(tweet_value)
@@ -75,7 +73,6 @@ def tweet():
 
 @app.route('/favorites', methods=['GET', 'POST'])
 def fav():
-    # this function gets content of tweets in db
     sentence = markov.generate_sentence(15, markov_chain)
 
     tweets_list = Tweet.query.all()
@@ -88,8 +85,6 @@ def fav():
         "success": True,
         "data": sentence,
     })
-
-    #return render_template('favorites.html', tweet=tweet_strings)
 
 @app.route('/favorite_tweet', methods=['GET'])
 def get_favorite_tweets():
